@@ -11,7 +11,7 @@
 	//global variables 
 	var scene;
 	var spaceship;
-	const gravity = 5;
+	var gravity = 5;
 	var thrustFlag = true;
 
 	function init(){ 
@@ -35,7 +35,8 @@
 		checkPause();
 		checkUp();
 		checkRotation();
-		
+		checkGravitySetting();
+		toggleShipVisable();
 	} // end critSec 
 	
 	function localPause(){
@@ -64,7 +65,7 @@
 			if (thrustFlag){
 				thrustFlag = false;
 				//spaceship.addForce(gravity + (gravity / 2), spaceship.getImgAngle() - 90);
-				spaceship.addAccel(gravity + (gravity / 2));
+				spaceship.addAccel(gravity + (gravity / 4) + 0.1);
 				//spaceship.setSpeed(100)
 				//console.log(spaceship.getImgAngle());
 			}
@@ -73,7 +74,7 @@
 			if (!thrustFlag){
 				thrustFlag = true;
 				//spaceship.addForce(gravity + (gravity / 2), spaceship.getImgAngle() + 90);
-				spaceship.addAccel(-(gravity + (gravity / 2)))
+				spaceship.addAccel(-(gravity + (gravity / 4) + 0.1))
 				//console.log("back down again");
 			}
 		}	
@@ -86,6 +87,41 @@
 			spaceship.turnBy(90 * (50/1000));
 		}
 		//console.log(spaceship.getImgAngle());
+	}
+	function checkGravitySetting(){
+		if (keysState[K_0]){
+			changeGravity(0);
+			}
+		if (keysState[K_1]){
+			changeGravity(1);
+		}
+		else if (keysState[K_2]){
+			changeGravity(2);
+		}
+		else if (keysState[K_3]){
+			changeGravity(3);
+		}
+		else if (keysState[K_4]){
+			changeGravity(4);
+		}
+		else if (keysState[K_5]){
+			changeGravity(5);
+		}
+		else if (keysState[K_6]){
+			changeGravity(6);
+		}
+	}
+	function toggleShipVisable(){
+		if (keysState[K_V]){
+			spaceship.toggleVisability();
+		}
+	}
+	function changeGravity(newGravity){
+		spaceship.addForce(-gravity, 270); //gravity...ish
+		ball.addForce(-gravity, 270); //gravityish again
+		gravity = newGravity;
+		spaceship.addForce(newGravity, 270); //gravity...ish
+		ball.addForce(newGravity, 270); //gravityish again
 	}
 </script> 
 
