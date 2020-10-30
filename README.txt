@@ -8,6 +8,8 @@ ball.png
 landerWhite.png
 spaceBackground.jpg
 
+the folowing repo is public and contains all source code and assets:  https://github.com/SamuraiTheNinja/SamuraiTheNinja.GitHub.io
+
 
 The game:
 You are in control of a space ship which can apply thrust downward. You can control the ship with WASD or the arrow keys.
