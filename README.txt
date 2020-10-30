@@ -14,6 +14,7 @@ the folowing repo is public and contains all source code and assets:  https://gi
 The game:
 You are in control of a space ship which can apply thrust downward. You can control the ship with WASD or the arrow keys.
 ##1st Press V to show the ship (may take a few trys due to button bounce)
+Esc or P can pause the game's state until pressed again. no pause menu
 Up or W: use booster rockets
 Left, Right or A, D: turn the ship left or right respectively
 changing the ships angle changes its motion, the thrusters apply a force which controls acceleration only
