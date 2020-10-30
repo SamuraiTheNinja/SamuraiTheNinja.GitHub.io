@@ -1,1 +1,102 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><link rel=icon href=mobie.jpg><title>Fisherman Synch</title><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css><link href=/css/app.5b860193.css rel=preload as=style><link href=/css/chunk-vendors.bc8ccbc7.css rel=preload as=style><link href=/js/app.b131946c.js rel=preload as=script><link href=/js/chunk-vendors.3755a5bb.js rel=preload as=script><link href=/css/chunk-vendors.bc8ccbc7.css rel=stylesheet><link href=/css/app.5b860193.css rel=stylesheet></head><body><noscript><strong>We're sorry but cardemo2 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=/js/chunk-vendors.3755a5bb.js></script><script src=/js/app.b131946c.js></script></body></html>
+<!DOCTYPE html>
+<HTML>
+
+<HEAD>
+<meta charset="UTF-8"> 
+<title>Moon Landing Game</title> 
+<script type = "text/javascript" 
+            src = "Game_Engine.JS"> 
+    </script> 
+<script type="text/javascript">  
+	//global variables 
+	var scene;
+	var spaceship;
+	const gravity = 5;
+	var thrustFlag = true;
+
+	function init(){ 
+		scene = new Scene(50, 1340, 630, 0, 0, "spaceBackground.jpg");
+		spaceship = new Sprite(scene, "landerWhite.png", 50, 50);
+		ball = new Sprite(scene, "ball.png", 10, 10);
+		scene.setBackgroundColor("image");
+		spaceship.setBoundAction("FLOOR_ONLY");
+		spaceship.toggleVisability();
+		ball.setBoundAction("BOUNCE");
+		spaceship.addForce(gravity, 270) //gravity...ish
+		ball.addForce(gravity, 270) //gravityish again
+		scene.start();
+	} // end init 
+
+	function critSec(){ 
+		scene.clear();
+		if (ball.collidesWith(spaceship)){ball.setSpeed(0);}
+		spaceship.update();
+		ball.update();
+		checkPause();
+		checkUp();
+		checkRotation();
+		
+	} // end critSec 
+	
+	function localPause(){
+		if (keysState[27] == true || keysState[80] == true){ //if esc is pressed, or if 'p' key is pressed
+			if (keysState[27] == false || keysState[80] == false){ //if esc is released, or if 'p' key is released
+				delay(50); //delay 10ms
+				scene.clear;
+				scene.setBackgroundColor("image");
+				scene.pause();
+			}
+		}
+	}
+	
+	function checkPause(){
+		if (keysState[K_ESC] == true || keysState[K_P] == true){ //if esc is pressed, or if 'p' key is pressed
+			if (keysState[K_ESC] == false || keysState[K_P] == false){ //if esc is released, or if 'p' key is released
+				delay(50); //delay 10ms
+				scene.clear;
+				scene.setBackgroundColor("gray");
+				scene.pause();
+			}
+		}
+	}
+	function checkUp(){
+		if (keysState[K_W] || keysState[K_UP]){ //if w or up arrow is pushed
+			if (thrustFlag){
+				thrustFlag = false;
+				//spaceship.addForce(gravity + (gravity / 2), spaceship.getImgAngle() - 90);
+				spaceship.addAccel(gravity + (gravity / 2));
+				//spaceship.setSpeed(100)
+				//console.log(spaceship.getImgAngle());
+			}
+		}
+		else{
+			if (!thrustFlag){
+				thrustFlag = true;
+				//spaceship.addForce(gravity + (gravity / 2), spaceship.getImgAngle() + 90);
+				spaceship.addAccel(-(gravity + (gravity / 2)))
+				//console.log("back down again");
+			}
+		}	
+	}
+	function checkRotation(){
+		if (keysState[K_A] || keysState[K_LEFT]){
+			spaceship.turnBy(-90 * (50/1000));
+		}
+		if (keysState[K_D] || keysState[K_RIGHT]){
+			spaceship.turnBy(90 * (50/1000));
+		}
+		//console.log(spaceship.getImgAngle());
+	}
+</script> 
+
+
+</HEAD>
+
+<!---------------------------------------------------------------------->
+
+<BODY onload = "init()">
+
+</BODY>
+
+
+</HTML>
